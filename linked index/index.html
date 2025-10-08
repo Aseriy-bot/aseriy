@@ -5,63 +5,661 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Resume</title>
+  <title>Aseriy Tuvana - Resume</title>
   <script src="https://unpkg.com/feather-icons"></script>
-  <link rel="stylesheet" href="../css/resume style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&display=swap');
+
+    * {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+    }
+
+    @font-face {
+      font-family: Varela_Round;
+      src: url('https://fonts.gstatic.com/s/varelaround/v19/w8gdH283Tvk__Lua32TysjIvoMGOD9gxZw.woff2');
+    }
+
+    :root {
+      --primary-color: rgb(0, 204, 204);
+      --text-color: #727171;
+      --bg-color: #070707;
+      --card-bg: #111111;
+      --accent-color: #00cccc;
+      --shadow-color: rgba(0, 204, 204, 0.1);
+    }
+
+    html {
+      font-family: Varela_Round;
+      font-size: 10px;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Inter, sans-serif;
+      background-color: var(--bg-color);
+      color: white;
+      overflow-x: hidden;
+    }
+
+    /* common styles */
+    img {
+      width: 100%;
+      transition: all 0.3s ease;
+    }
+
+    a {
+      text-decoration: none;
+      color: white;
+      transition: all 0.3s ease;
+    }
+
+    .description {
+      margin-top: 1rem;
+      font-size: 1.5rem;
+      font-weight: 400;
+      color: var(--text-color);
+      line-height: 1.6;
+    }
+
+    .title {
+      color: var(--primary-color);
+      font-weight: 700;
+      font-size: 2rem;
+      text-transform: uppercase;
+      position: relative;
+      display: inline-block;
+      margin-bottom: 2rem;
+    }
+
+    .title::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 50px;
+      height: 3px;
+      background: var(--primary-color);
+      transition: width 0.5s ease;
+    }
+
+    .title:hover::after {
+      width: 100%;
+    }
+
+    .item_preTitle {
+      font-size: 1.4rem;
+      color: var(--text-color);
+      font-weight: 300;
+    }
+
+    .item_title {
+      font-size: 1.6rem;
+      color: white;
+      font-weight: 500;
+      margin: 0.8rem 0;
+    }
+
+    .item_subtitle {
+      font-size: 1.4rem;
+      color: var(--text-color);
+      font-weight: 400;
+    }
+
+    /* layouts */
+    .container {
+      max-width: 1000px;
+      width: 90%;
+      margin: 0 auto;
+      display: grid;
+      padding: 5rem;
+      background: var(--bg-color);
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      animation: fadeIn 1s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media only screen and (max-width: 768px) {
+      .container {
+        width: 100%;
+        grid-template-columns: 1fr;
+        padding: 3rem;
+        gap: 7rem;
+      }
+    }
+
+    .profile {
+      grid-column: 1 / -1;
+      margin-bottom: 2rem;
+      position: relative;
+    }
+
+    .group-1,
+    .group-2 {
+      display: flex;
+      flex-direction: column;
+      gap: 5rem;
+    }
+
+    .group-3 {
+      max-width: 700px;
+      width: 100%;
+      margin: 0 auto;
+      grid-column: 1/-1;
+      display: flex;
+      flex-direction: row;
+      gap: 5rem;
+    }
+
+    .group-3>div {
+      flex: 1;
+    }
+
+    @media only screen and (max-width: 768px) {
+      .profile {
+        margin-bottom: 0;
+      }
+
+      .group-3 {
+        flex-direction: column;
+      }
+    }
+
+    /* profile */
+    .profile_container {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .profile_profileImg {
+      max-width: 250px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 3px solid var(--primary-color);
+      box-shadow: 0 0 20px var(--shadow-color);
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .profile_profileImg:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 30px var(--shadow-color);
+    }
+
+    .profile_profileImg::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, transparent, rgba(0, 204, 204, 0.1), transparent);
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    .profile_profileImg:hover::before {
+      opacity: 1;
+    }
+
+    .profile_name_firstName {
+      color: white;
+      font-weight: 200;
+      font-size: clamp(2rem, 8vw, 4rem);
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: -0.8rem;
+      animation: slideInLeft 1s ease;
+    }
+
+    .profile_name_lastName {
+      color: var(--primary-color);
+      font-weight: 700;
+      font-size: clamp(2.5rem, 15vw, 7rem);
+      text-transform: uppercase;
+      display: block;
+      animation: slideInRight 1s ease;
+    }
+
+    @keyframes slideInLeft {
+      from { opacity: 0; transform: translateX(-50px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes slideInRight {
+      from { opacity: 0; transform: translateX(50px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    .profile_title {
+      font-size: 1.5rem;
+      font-weight: 400;
+      text-transform: uppercase;
+      margin-top: 1rem;
+      animation: fadeIn 1.5s ease;
+    }
+
+    .downloadBtn {
+      display: inline-block;
+      padding: 1rem 2rem;
+      background: transparent;
+      border: 2px solid var(--primary-color);
+      color: var(--primary-color);
+      font-size: 1.6rem;
+      margin-top: 2rem;
+      border-radius: 5px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .downloadBtn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: var(--primary-color);
+      transition: all 0.5s ease;
+      z-index: -1;
+    }
+
+    .downloadBtn:hover {
+      color: black;
+    }
+
+    .downloadBtn:hover::before {
+      left: 0;
+    }
+
+    @media only screen and (max-width: 768px) {
+      .profile_container {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+
+    /* Cards */
+    .card {
+      background: var(--card-bg);
+      padding: 2.5rem;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 5px;
+      height: 100%;
+      background: var(--primary-color);
+      transition: width 0.3s ease;
+    }
+
+    .card:hover::before {
+      width: 100%;
+      opacity: 0.1;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+    }
+
+    /* Expertise */
+    .skills_list {
+      margin-top: 1rem;
+      margin-left: 2rem;
+      line-height: 2;
+    }
+
+    .skills_list li {
+      position: relative;
+      padding-left: 1.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .skills_list li::before {
+      content: '▹';
+      position: absolute;
+      left: 0;
+      color: var(--primary-color);
+    }
+
+    .skills_list li:hover {
+      color: var(--primary-color);
+      transform: translateX(5px);
+    }
+
+    /* Ref  */
+    .ref_item {
+      margin-top: 2rem;
+      transition: all 0.3s ease;
+    }
+
+    .ref_item:hover {
+      transform: translateX(5px);
+    }
+
+    .ref_name {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: white;
+    }
+
+    /* eduction */
+    .edu_item {
+      margin-top: 2rem;
+      padding-left: 1.5rem;
+      border-left: 2px solid var(--primary-color);
+      transition: all 0.3s ease;
+    }
+
+    .edu_item:hover {
+      border-left: 2px solid white;
+      transform: translateX(5px);
+    }
+
+    /* certification */
+    .certification_item {
+      margin-top: 2rem;
+      transition: all 0.3s ease;
+    }
+
+    .certification_item:hover {
+      transform: translateX(5px);
+    }
+
+    /* exp */
+    .exp_item {
+      margin-top: 2rem;
+      padding-left: 1.5rem;
+      border-left: 2px solid var(--primary-color);
+      transition: all 0.3s ease;
+    }
+
+    .exp_item:hover {
+      border-left: 2px solid white;
+      transform: translateX(5px);
+    }
+
+    /* awards */
+    .awards_item {
+      margin-top: 2rem;
+      transition: all 0.3s ease;
+    }
+
+    .awards_item:hover {
+      transform: translateX(5px);
+    }
+
+    /* Interests */
+    .interest_items {
+      margin-top: 2rem;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+
+    .interest_item {
+      font-size: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      color: var(--text-color);
+      transition: all 0.3s ease;
+      padding: 1rem;
+      border-radius: 5px;
+    }
+
+    .interest_item:hover {
+      color: var(--primary-color);
+      transform: translateY(-5px);
+      background: rgba(0, 204, 204, 0.1);
+    }
+
+    .interest_item svg {
+      width: 2rem;
+    }
+
+    /* socials */
+    .social_items {
+      margin-top: 2rem;
+    }
+
+    .social_item {
+      margin-top: 1.5rem;
+      font-size: 1.5rem;
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+      justify-content: flex-start;
+      color: var(--text-color);
+      transition: all 0.3s ease;
+      padding: 0.5rem;
+      border-radius: 5px;
+    }
+
+    .social_item:hover {
+      color: var(--primary-color);
+      transform: translateX(5px);
+      background: rgba(0, 204, 204, 0.1);
+    }
+
+    .social_item svg {
+      width: 2rem;
+    }
+
+    hr {
+      grid-column: 1/-1;
+      width: 80%;
+      margin: 0 auto;
+      margin-top: 5rem;
+      margin-bottom: 1rem;
+      border: none;
+      border-top: 2px solid rgba(128, 128, 128, 0.229);
+    }
+
+    @media only screen and (max-width: 768px) {
+      hr {
+        margin: 0 auto;
+      }
+    }
+
+    /* Floating elements */
+    .floating-elements {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .floating-element {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--primary-color);
+      opacity: 0.1;
+      animation: float 15s infinite linear;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translate(0, 0) rotate(0deg);
+      }
+      100% {
+        transform: translate(100vw, 100vh) rotate(360deg);
+      }
+    }
+
+    /* Scroll progress bar */
+    .progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 0%;
+      height: 3px;
+      background: var(--primary-color);
+      z-index: 1000;
+      transition: width 0.2s ease;
+    }
+
+    /* Back to top button */
+    .back-to-top {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 50px;
+      height: 50px;
+      background: var(--primary-color);
+      color: black;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      z-index: 1000;
+    }
+
+    .back-to-top.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .back-to-top:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(0, 204, 204, 0.4);
+    }
+
+    /* Back button */
+    .back-button {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      width: 50px;
+      height: 50px;
+      background: var(--primary-color);
+      color: black;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      z-index: 1000;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .back-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0, 204, 204, 0.4);
+    }
+
+    /* Header section */
+    .header {
+      position: relative;
+      padding-top: 2rem;
+    }
+  </style>
 </head>
 
 <body>
+  <!-- Back Button -->
+  <a href="#" class="back-button" id="backButton" onclick="history.back()">
+    <i class="fas fa-arrow-left"></i>
+  </a>
+
+  <!-- Progress Bar -->
+  <div class="progress-bar" id="progressBar"></div>
+
+  <!-- Back to Top Button -->
+  <div class="back-to-top" id="backToTop">
+    <i class="fas fa-arrow-up"></i>
+  </div>
+
+  <!-- Floating Elements -->
+  <div class="floating-elements" id="floatingElements"></div>
+
   <div class="container">
-         <div class="profile">
-            <div class="profile_container">
-                 <div class="profile_profileImg">
-                     <img src="../img/tuva.png" alt="shaif arfan">
-                 </div>
-                <div>
-                <h1 class="profile_name">
-                    <span class="profile_name_firstName">Aseriy</span>
-                    <span class="profile_name_lastName">TUVANA</span>
-                </h1>
-                <p class="profile_title">Software Developer</p>
-                <p class="description profile_description">
-                     I do programming not because i expect to get
-                    paid or get adulation by the public, but because it is fun to program.
-                </p>
-                <a class="downloadBtn" href="./cv.pdf" download="cv.pdf">Download Resume</a>
-                </div>
-            </div>
-         </div>
-         <div class="group-1">
-      <div class="skills">
+    <div class="profile header">
+      <div class="profile_container">
+        <div class="profile_profileImg">
+          <img src="/img/tuvana.PNG" alt="Aseriy Tuvana">
+        </div>
+        <div>
+          <h1 class="profile_name">
+            <span class="profile_name_firstName">Aseriy</span>
+            <span class="profile_name_lastName">TUVANA</span>
+          </h1>
+          <p class="profile_title">Software Developer</p>
+          <p class="description profile_description">
+            I do programming not because I expect to get paid or get adulation by the public, but because it is fun to program.
+          </p>
+          <a class="downloadBtn" href="./cv.pdf" download="cv.pdf">
+            <i class="fas fa-download"></i> Download Resume
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="group-1">
+      <div class="skills card">
         <h3 class="title">Expertise</h3>
         <ul class="skills_list description">
           <li>HTML & CSS</li>
           <li>JavaScript</li>
           <li>Graphics & Design</li>
-          <li>Compuer Repair</li>
+          <li>Computer Repair</li>
           <li>PLC Automation</li>
           <li>Networking</li>
         </ul>
       </div>
-      <div class="ref">
+
+      <div class="ref card">
         <h3 class="title">Reference</h3>
         <div class="ref_item">
-            <h4 class="ref_name">Eng Joel Migeni,</h4>
-            <p class="description">TTCL Dar es Salaam South, P.O. Box 40000, Dar es Salaam,
-              E-mail: joel.migeni@ttcl.co.tz, Phone: +255 738 260 951
-            </p>
+          <h4 class="ref_name">Eng Joel Migeni,</h4>
+          <p class="description">TTCL Dar es Salaam South, P.O. Box 40000, Dar es Salaam,
+            E-mail: joel.migeni@ttcl.co.tz, Phone: +255 738 260 951
+          </p>
         </div>
         <div class="ref_item">
-            <h4 class="ref_name">Eng Godbless Massawe</h4>
-            <p class="description">DIT Siemens Lab,
-              Lab Cordinator, P.O.Box 2958, Dar es Salaam, E-mail: godblessmasawe@gmail.com, 
-              Phone: +255 745 637 217.
-            </p>
+          <h4 class="ref_name">Eng Godbless Massawe</h4>
+          <p class="description">DIT Siemens Lab,
+            Lab Coordinator, P.O.Box 2958, Dar es Salaam, E-mail: godblessmasawe@gmail.com,
+            Phone: +255 745 637 217.
+          </p>
         </div>
       </div>
 
-      <div class="edu">
+      <div class="edu card">
         <h3 class="title">Education</h3>
         <div class="edu_item">
           <p class="item_preTitle">2024-2027</p>
@@ -79,8 +677,8 @@
         </div>
       </div>
 
-      <div class="certification">
-        <h3 class="title">certification</h3>
+      <div class="certification card">
+        <h3 class="title">Certification</h3>
         <div class="certification_item">
           <p class="item_preTitle">2022</p>
           <h4 class="item_title">Frontend Developer</h4>
@@ -89,16 +687,17 @@
           </p>
         </div>
       </div>
-         </div>
-         <div class="group-2">
-      <div class="exp">
+    </div>
+
+    <div class="group-2">
+      <div class="exp card">
         <h3 class="title">Experience</h3>
         <div class="exp_item">
           <p class="item_preTitle">2022 - present</p>
           <h4 class="item_title">Aset CO LTD.</h4>
           <p class="item_subtitle">CEO & CO Founder of Aset co ltd</p>
-          <p class=" description">
-              Management.
+          <p class="description">
+            Management.
           </p>
         </div>
         <div class="exp_item">
@@ -110,18 +709,19 @@
           </p>
         </div>
       </div>
-      <div class="awards">
+
+      <div class="awards card">
         <h3 class="title">Awards</h3>
         <div class="awards_item">
           <p class="item_preTitle">2022</p>
           <h4 class="item_title">Aset CO LTD.</h4>
-          <p class=" description">
-            Best Tech Company 2021/2022 (Reginal)
+          <p class="description">
+            Best Tech Company 2021/2022 (Regional)
           </p>
         </div>
       </div>
 
-      <div class="interest">
+      <div class="interest card">
         <h3 class="title">Interest</h3>
         <div class="interest_items">
           <div class="interest_item">
@@ -137,34 +737,36 @@
             <span>Travel</span>
           </div>
         </div>
-
       </div>
-         </div>
-         <hr>
-         <div class="group-3">
-      <div class="contact">
+    </div>
+
+    <hr>
+
+    <div class="group-3">
+      <div class="contact card">
         <h3 class="title">Contact</h3>
         <div class="contact_info">
           <p class="description">
-            Temeke, Dar es salaam
+            <i class="fas fa-map-marker-alt"></i> Temeke, Dar es salaam
           </p>
           <p class="description">
-            +255 621 850 250
+            <i class="fas fa-phone"></i> +255 621 850 250
           </p>
           <p class="description">
-            aseriy989@gmail.com
+            <i class="fas fa-envelope"></i> aseriy989@gmail.com
           </p>
         </div>
       </div>
-      <div class="social">
+
+      <div class="social card">
         <h3 class="title">Socials</h3>
         <div class="social_items">
-          <a href="https://www.facebook.com/offical.tuvana" target="_b" class="social_item">
+          <a href="https://www.facebook.com/offical.tuvana" target="_blank" class="social_item">
             <i class="fa-brands fa-facebook-f"></i>
             <span>/Aseriy Tuvana</span>
           </a>
           <a href="#" target="_blank" class="social_item">
-             <i data-feather="twitter"></i>
+            <i data-feather="twitter"></i>
             <span>/Aseriy.T</span>
           </a>
           <a href="#" target="_blank" class="social_item">
@@ -173,10 +775,73 @@
           </a>
         </div>
       </div>
-         </div>
+    </div>
   </div>
+
   <script>
-    feather.replace()
+    // Initialize Feather Icons
+    feather.replace();
+
+    // Create floating elements
+    const floatingElements = document.getElementById('floatingElements');
+    for (let i = 0; i < 15; i++) {
+      const element = document.createElement('div');
+      element.classList.add('floating-element');
+      element.style.width = `${Math.random() * 30 + 10}px`;
+      element.style.height = element.style.width;
+      element.style.left = `${Math.random() * 100}vw`;
+      element.style.top = `${Math.random() * 100}vh`;
+      element.style.animationDuration = `${Math.random() * 20 + 10}s`;
+      element.style.opacity = Math.random() * 0.1 + 0.05;
+      floatingElements.appendChild(element);
+    }
+
+    // Scroll progress bar
+    window.onscroll = function() {
+      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      document.getElementById("progressBar").style.width = scrolled + "%";
+
+      // Show/hide back to top button
+      const backToTop = document.getElementById('backToTop');
+      if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+        backToTop.classList.add('active');
+      } else {
+        backToTop.classList.remove('active');
+      }
+    };
+
+    // Back to top functionality
+    document.getElementById('backToTop').addEventListener('click', function() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+
+    // Add scroll animation to elements
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = 1;
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
+
+    // Observe all cards for animation
+    document.querySelectorAll('.card').forEach(card => {
+      card.style.opacity = 0;
+      card.style.transform = 'translateY(20px)';
+      card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+      observer.observe(card);
+    });
   </script>
 </body>
 
